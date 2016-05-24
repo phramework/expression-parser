@@ -32,4 +32,22 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     {
         new ExpressionParser();
     }
+
+    public function testEval()
+    {
+        $parser = new ExpressionParser();
+
+        $expression = [];
+
+        $eval = $parser->eval;
+
+        $r = $eval([
+            'member',
+            ['input',  'a'],
+            ['quote', [1, 2, 3, 5]]
+        ]);
+
+        $this->assertTrue($r);
+
+    }
 }

@@ -24,13 +24,83 @@ namespace Phramework\ExpressionParser;
  */
 class ExpressionParser
 {
+
     /**
      * @var \stdClass
      */
     protected $functions;
 
+    /**
+     * @var callable
+     */
+    public $eval;
+
     public function __construct()
     {
         $this->functions = new \stdClass();
+
+        $f = (object) [
+            'member' => function($a, $list) {
+                return in_array($a, $list);
+            },
+            'or' => function (bool ...$op) {
+                foreach ($op as $o) {
+                    if ($o === true) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+            'and' => function (bool ...$op) {
+                foreach ($op as $o) {
+                    if ($o === false) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        ];
+
+        $input = (object) [
+            'a' => 5
+        ];
+
+        $source = (object) [
+            'input' => function ($key) use ($input) {
+                return $input->{$key};
+            }
+        ];
+
+        $this->eval = $eval = function ($exp) use ($f, $source, &$eval) {
+            if (is_bool($exp)) { //bool
+                return $exp;
+            }
+
+            if (is_string($exp)) {
+                return $f->{$exp}; //return callable
+            }
+
+            if (!is_array($exp)) { //literal
+                return $exp;
+            }
+
+            if ($exp[0] == 'quote') {
+                return $exp[1];
+            }
+
+            if (property_exists($source, $exp[0])) {
+                $s = $source->{$exp[0]};
+                return $s(...array_slice($exp, 1));
+            }
+
+            $result = array_map($eval, $exp);
+
+            $function = $result[0];
+            $args     = array_slice($result, 1);
+
+            return $function(...$args);
+        };
     }
 }

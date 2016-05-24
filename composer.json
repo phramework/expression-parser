@@ -19,9 +19,11 @@
     "phpunit/phpunit": "5.*",
     "squizlabs/php_codesniffer": "*",
     "satooshi/php-coveralls": "dev-master",
-    "codacy/coverage": "^1.0"
+    "codacy/coverage": "^1.0",
+    "phpdocumentor/phpdocumentor": "2.*"
   },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Phramework\\ExpressionParser\\": "src"
