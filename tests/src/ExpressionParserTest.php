@@ -16,7 +16,6 @@
  */
 namespace Phramework\ExpressionParser;
 
-
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
@@ -24,7 +23,6 @@ namespace Phramework\ExpressionParser;
  */
 class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @covers ::__construct
      */
@@ -49,5 +47,50 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($r);
 
+        $r = $eval([
+            'member',
+            ['quote',  '5'],
+            ['quote', [1, 2, 3, 5]]
+        ]);
+
+        $this->assertTrue($r);
+
+        $r = $eval([
+            'and',
+            ['quote', true],
+            ['quote', false]
+        ]);
+
+        $this->assertFalse($r);
+
+        $r = $eval([
+            'and',
+            ['quote', true],
+            ['quote', true]
+        ]);
+
+        $this->assertTrue($r);
+        
+        $r = $eval([
+            'and',
+            ['quote', true],
+            [
+                'member',
+                ['quote',  '5'],
+                ['quote', [1, 2, 3, 5]]
+            ]
+        ]);
+
+        $this->assertTrue($r);
+
+        $r = $eval([
+            'range',
+            ['input', 'a'],
+            1, 3,
+            true,
+            true
+        ]);
+
+        $this->assertFalse($r);
     }
 }

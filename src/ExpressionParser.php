@@ -16,6 +16,8 @@
  */
 namespace Phramework\ExpressionParser;
 
+use Phramework\Operator\Operator;
+
 /**
  * Expression parser
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -39,59 +41,120 @@ class ExpressionParser
     {
         $this->functions = new \stdClass();
 
-        $f = (object) [
-            'member' => function($a, $list) {
-                return in_array($a, $list);
+        $symbol = (object) [
+            'member' => function($item, $list) : bool {
+                return in_array($item, $list);
             },
-            'or' => function (bool ...$op) {
-                foreach ($op as $o) {
-                    if ($o === true) {
+            'or' => function (bool ...$op) : bool {
+                foreach ($op as $item) {
+                    if ($item === true) {
                         return true;
                     }
                 }
 
                 return false;
             },
-            'and' => function (bool ...$op) {
-                foreach ($op as $o) {
-                    if ($o === false) {
+            'and' => function (bool ...$op) : bool {
+                foreach ($op as $item) {
+                    if ($item === false) {
                         return false;
                     }
+                }
+
+                return true;
+            },
+            '==' => function (...$op) {
+                return count(array_unique($op)) === 1;
+            },
+            Operator::NOT_EQUAL => function (...$op) : bool {
+                return count(array_unique($op)) > 1;
+            },
+            Operator::LESS => function (...$op) : bool {
+                $init = reset($op);
+
+                next($op);
+
+                while (list($key, $val) = each($op)) {
+                    if ($val >= $init) {
+                        return false;
+                    }
+                    $init = $val;
+                }
+
+                return true;
+            },
+            Operator::GREATER => function (...$op) : bool {
+                $init = reset($op);
+
+                next($op);
+
+                while (list($key, $val) = each($op)) {
+                    if ($val <= $init) {
+                        return false;
+                    }
+                    $init = $val;
+                }
+
+                return true;
+            },
+            '!' => function($op) {
+                return !$op;
+            },
+            'range' => function(
+                $item,
+                $lower,
+                $upper,
+                bool $inclusiveLower = true,
+                bool $inclusiveUpper = true
+            ) : bool {
+                if ($item > $lower || (!$inclusiveLower && $item >= $lower)) {
+                    return false;
+                } elseif ($item < $upper || (!$inclusiveUpper && $item <= $lower)) {
+                    return false;
                 }
 
                 return true;
             }
         ];
 
+        /**
+         * A source named input
+         */
         $input = (object) [
             'a' => 5
         ];
 
-        $source = (object) [
+        /**
+         * Gather source collections
+         */
+        $sourceCollection = (object) [
             'input' => function ($key) use ($input) {
                 return $input->{$key};
             }
         ];
 
-        $this->eval = $eval = function ($exp) use ($f, $source, &$eval) {
+        $this->eval = $eval = function ($exp) use ($symbol, $sourceCollection, &$eval) {
             if (is_bool($exp)) { //bool
                 return $exp;
             }
 
-            if (is_string($exp)) {
-                return $f->{$exp}; //return callable
+            if (is_string($exp) && property_exists($symbol, $exp)) {
+                return $symbol->{$exp}; //return callable
             }
 
             if (!is_array($exp)) { //literal
                 return $exp;
             }
 
-            if ($exp[0] == 'quote') {
+            if ($exp[0] === 'quote') {
                 return $exp[1];
             }
 
-            if (property_exists($source, $exp[0])) {
-                $s = $source->{$exp[0]};
+            if (is_string($exp[0]) && property_exists($sourceCollection, $exp[0])) {
+                //$exp[0] is the name of the source, rest are source key arguments
+                $source = $exp[0];
+
+                $s = $sourceCollection->{$source};
                 return $s(...array_slice($exp, 1));
             }
 
