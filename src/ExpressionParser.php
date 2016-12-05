@@ -48,9 +48,9 @@ class ExpressionParser
      */
     public function evaluate($exp)
     {
-        if (is_bool($exp)) { //bool
+        /*if (is_bool($exp)) { //bool
             return $exp;
-        }
+        }*/
 
         if (is_string($exp) && $this->language->isset($exp)) {
             /*
@@ -59,7 +59,10 @@ class ExpressionParser
             return $this->language->get($exp);
         }
 
-        if (!is_array($exp)) { //literal ?
+        /*
+         * If is literal
+         */
+        if (!is_array($exp)) {
             return $exp;
         }
 

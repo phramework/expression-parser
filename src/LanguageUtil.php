@@ -113,7 +113,7 @@ final class LanguageUtil
                 $upper,
                 bool $inclusiveLower = true,
                 bool $inclusiveUpper = true
-            ): bool {
+            ) : bool {
                 if ($item > $lower || (!$inclusiveLower && $item >= $lower)) {
                     return false;
                 } elseif ($item < $upper || (!$inclusiveUpper && $item <= $lower)) {
@@ -121,6 +121,12 @@ final class LanguageUtil
                 }
 
                 return true;
+            },
+            'max'              => function (...$op) {
+                return max(...$op);
+            },
+            'min'              => function (...$op) {
+                return min(...$op);
             }
         ];
     }

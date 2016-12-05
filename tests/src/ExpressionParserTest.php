@@ -25,6 +25,23 @@ namespace Phramework\ExpressionParser;
 class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var ExpressionParser
+     */
+    protected $parser;
+
+    public function setUp()
+    {
+        $this->parser = new ExpressionParser(
+            Language::getDefault(),
+            (new Input())
+                ->set(
+                    'a',
+                    5
+                )
+        );
+    }
+
+    /**
      * @covers ::__construct
      */
     public function testConstruct()
@@ -35,18 +52,33 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::evaluate
      */
-    public function testEval()
+    public function testEvaluateLiteral()
     {
-        $parser = new ExpressionParser(
-            Language::getDefault(),
-            (new Input())
-                ->set(
-                    'a',
-                    5
-                )
+        $r = $this->parser->evaluate(
+            true
         );
 
-        $r = $parser->evaluate([
+        $this->assertSame(
+            true,
+            $r
+        );
+
+        $r = $this->parser->evaluate(
+            5
+        );
+
+        $this->assertSame(
+            5,
+            $r
+        );
+    }
+
+    /**
+     * @covers ::evaluate
+     */
+    public function testEvaluate()
+    {
+        $r = $this->parser->evaluate([
             'member',
             ['input',  'a'],
             ['quote', [1, 2, 3, 5]]
@@ -54,15 +86,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($r);
 
-        $r = $parser->evaluate([
-            'member',
-            ['quote',  '5'],
-            ['quote', [1, 2, 3, 5]]
-        ]);
-
-        $this->assertTrue($r);
-
-        $r = $parser->evaluate([
+        $r = $this->parser->evaluate([
             'and',
             ['quote', true],
             ['quote', false]
@@ -70,7 +94,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($r);
 
-        $r = $parser->evaluate([
+        $r = $this->parser->evaluate([
             'and',
             ['quote', true],
             ['quote', true]
@@ -78,7 +102,7 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($r);
         
-        $r = $parser->evaluate([
+        $r = $this->parser->evaluate([
             'and',
             ['quote', true],
             [
@@ -90,17 +114,32 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($r);
 
-        $r = $parser->evaluate([
-            'range',
-            ['input', 'a'],
-            1, 3,
-            true,
-            true
-        ]);
+    }
 
-        $this->assertFalse($r);
+    /**
+     * @covers ::evaluate
+     */
+    public function testEvaluateQuote()
+    {
+        $r = $this->parser->evaluate(
+            ['quote',  true]
+        );
 
-        $r = $parser->evaluate(
+        $this->assertSame(true, $r);
+
+        $r = $this->parser->evaluate(
+            ['quote', [1, 5, 3]]
+        );
+
+        $this->assertSame([1, 5, 3], $r);
+    }
+
+    /**
+     * @covers ::evaluate
+     */
+    public function testEvaluateInput()
+    {
+        $r = $this->parser->evaluate(
             ['input',  'a']
         );
 
@@ -131,5 +170,13 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertTrue($r);
+
+        $r = $parser->evaluate([
+            'or',
+            ['quote', false],
+            ['quote', false],
+        ]);
+
+        $this->assertFalse($r);
     }
 }

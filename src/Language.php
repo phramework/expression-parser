@@ -85,9 +85,7 @@ class Language
             Operator::EQUAL,
             Operator::NOT_EQUAL,
             Operator::LESS,
-            Operator::GREATER,
-            '!',
-            'range',
+            Operator::GREATER
         ];
 
         $language = new Language();
