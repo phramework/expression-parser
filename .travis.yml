@@ -1,0 +1,15 @@
+language: php
+php:
+  - 7.0
+  - 7.1
+install:
+ - composer self-update
+ - composer install --no-interaction --dev
+before_script:
+  - mkdir -p build/
+  - mkdir -p build/logs
+script:
+ - composer test
+after_script:
+ - php vendor/bin/coveralls -v
+ - php vendor/bin/codacycoverage clover build/logs/clover.xml
