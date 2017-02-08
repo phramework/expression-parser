@@ -42,8 +42,89 @@ $parser = new ExpressionParser(
  */
 $result = $parser->evaluate([
     'or',
-    ['quote', true],
-    ['quote', false],
+    true,
+    false,
+]);
+```
+
+```php
+<?php
+/**
+ * Define a language of functions
+ */
+$language = (new Language())
+    /*
+     * Define '+' function
+     */
+    ->set(
+        '+',
+        function(float $l, float $r) : bool {
+            return $l || $r;
+        }
+    );
+
+/**
+ * Create a parser based on a language
+ */
+$parser = new ExpressionParser(
+    $language
+);
+
+/*
+ * Evaluate expression, expect result to be true
+ */
+$result = $parser->evaluate([
+    'or',
+    true,
+    false,
+]);
+```
+
+A more complex
+
+```php
+<?php
+/**
+ * Define a language of functions
+ */
+$language = (new Language())
+    /*
+     * Define '+' function
+     */
+    ->set(
+        '+',
+        function(float $l, float $r) : float {
+            return $l + $r;
+        }
+    )
+    /*
+     * Define '+' function
+     */
+    ->set(
+        '-',
+        function(float $l, float $r) : float {
+            return $l - $r;
+        }
+    );
+
+/**
+ * Create a parser based on a language
+ */
+$parser = new ExpressionParser(
+    $language
+);
+
+/*
+ * Evaluate expression, expect result to be 5 + 4.5 - 1 = 8.5
+ */
+$result = $parser->evaluate([
+    '+',
+    5,
+    [
+        '-',
+        4.5,
+        1
+    ],
 ]);
 ```
 

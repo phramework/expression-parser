@@ -178,5 +178,68 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertFalse($r);
+
+        $r = $parser->evaluate([
+            'or',
+            true,
+            false
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    /**
+     * @covers ::evaluate
+     */
+    public function testComplex()
+    {
+        /**
+         * Define a language of functions
+         */
+        $language = (new Language())
+            /*
+             * Define '+' function
+             */
+            ->set(
+                '+',
+                function(float $l, float $r) : float {
+                    return $l + $r;
+                }
+            )
+            /*
+             * Define '+' function
+             */
+            ->set(
+                '-',
+                function(float $l, float $r) : float {
+                    return $l - $r;
+                }
+            );
+
+        /**
+         * Create a parser based on a language
+         */
+        $parser = new ExpressionParser(
+            $language
+        );
+
+        /*
+         * Evaluate expression
+         */
+        $result = $parser->evaluate([
+            '+',
+            5,
+            [
+                '-',
+                4.5,
+                1
+            ],
+        ]);
+
+        $this->assertSame(
+            5 + 4.5 - 1,
+            $result,
+            'Expect result to be 5 + 4.5 - 1 = 8.5'
+        );
     }
 }
