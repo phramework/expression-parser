@@ -123,11 +123,37 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         $r = $p->evaluate([
             'range',
             2,
-            1, 3,
+            1,
+            3,
             true,
             true
         ]);
 
-        $this->assertFalse($r);
+        $this->assertTrue($r, 'Expect true, since 1 <= 2 <= 3');
+    }
+
+    /**
+     * @covers ::getMethod
+     */
+    public function testRangeSecond()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    'range',
+                    LanguageUtil::getMethod('range')
+                )
+        );
+
+        $r = $p->evaluate([
+            'range',
+            3,
+            1,
+            3,
+            false,
+            false
+        ]);
+
+        $this->assertFalse($r, 'Expect false, since 1 < 3 < 3');
     }
 }
