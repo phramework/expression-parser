@@ -156,4 +156,27 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($r, 'Expect false, since 1 < 3 < 3');
     }
+
+    /**
+     * @covers ::getMethod
+     */
+    public function testRangeNull()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    'range',
+                    LanguageUtil::getMethod('range')
+                )
+        );
+
+        $r = $p->evaluate([
+            'range',
+            null,
+            0,
+            4
+        ]);
+
+        $this->assertFalse($r);
+    }
 }
