@@ -114,6 +114,10 @@ final class LanguageUtil
                 bool $inclusiveLower = true,
                 bool $inclusiveUpper = true
             ) : bool {
+                if ($item === null) {
+                    return false;
+                }
+
                 if ($item > $upper || (!$inclusiveLower && $item >= $upper)) {
                     return false;
                 } elseif ($item < $lower || (!$inclusiveUpper && $item <= $lower)) {
