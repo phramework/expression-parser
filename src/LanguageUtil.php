@@ -107,6 +107,10 @@ final class LanguageUtil
             '!'                 => function ($op) {
                 return !$op;
             },
+            /**
+             * Will return true, only if given $item is inside the range
+             * @return bool
+             */
             'range'             => function (
                 $item,
                 $lower,
@@ -118,9 +122,10 @@ final class LanguageUtil
                     return false;
                 }
 
-                if ($item > $upper || (!$inclusiveLower && $item >= $upper)) {
+                if ($item > $upper || (!$inclusiveUpper && $item == $upper)) {
                     return false;
-                } elseif ($item < $lower || (!$inclusiveUpper && $item <= $lower)) {
+                
+                if ($item < $lower || (!$inclusiveLower && $item == $lower)) {
                     return false;
                 }
 

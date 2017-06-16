@@ -26,9 +26,6 @@ use Phramework\Operator\Operator;
  */
 class LanguageUtilTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers ::getMethod
-     */
     public function testMax()
     {
         $p = new ExpressionParser(
@@ -50,9 +47,6 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers ::getMethod
-     */
     public function testGreater()
     {
         $p = new ExpressionParser(
@@ -84,9 +78,6 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($r);
     }
 
-    /**
-     * @covers ::getMethod
-     */
     public function testNotEqual()
     {
         $p = new ExpressionParser(
@@ -107,9 +98,6 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($r);
     }
 
-    /**
-     * @covers ::getMethod
-     */
     public function testRange()
     {
         $p = new ExpressionParser(
@@ -132,9 +120,6 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($r, 'Expect true, since 1 <= 2 <= 3');
     }
 
-    /**
-     * @covers ::getMethod
-     */
     public function testRangeSecond()
     {
         $p = new ExpressionParser(
@@ -156,10 +141,7 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($r, 'Expect false, since 1 < 3 < 3');
     }
-
-    /**
-     * @covers ::getMethod
-     */
+    
     public function testRangeNull()
     {
         $p = new ExpressionParser(
@@ -178,5 +160,49 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertFalse($r);
+    }
+
+    public function testRangeLowerInclusive()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    'range',
+                    LanguageUtil::getMethod('range')
+                )
+        );
+        
+        $r = $p->evaluate([
+            'range',
+            0,
+            0,
+            1,
+            false,
+            true
+        ]);
+        
+        $this->assertTrue($r, 'Expect true since 0 <= 0');
+    }
+    
+    public function testRangeUpperInclusive()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    'range',
+                    LanguageUtil::getMethod('range')
+                )
+        );
+        
+        $r = $p->evaluate([
+            'range',
+            1,
+            0,
+            1,
+            false,
+            true
+        ]);
+        
+        $this->assertTrue($r, 'Expect true since 1 >= 0');
     }
 }
