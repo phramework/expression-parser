@@ -122,9 +122,10 @@ final class LanguageUtil
                     return false;
                 }
 
-                if ($item > $upper || (!$inclusiveUpper && $item >= $upper)) {
+                if ($item > $upper || (!$inclusiveUpper && $item == $upper)) {
                     return false;
-                } elseif ($item < $lower || (!$inclusiveLower && $item <= $lower)) {
+                
+                if ($item < $lower || (!$inclusiveLower && $item == $lower)) {
                     return false;
                 }
 
