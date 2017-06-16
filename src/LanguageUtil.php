@@ -118,9 +118,9 @@ final class LanguageUtil
                     return false;
                 }
 
-                if ($item > $upper || (!$inclusiveLower && $item >= $upper)) {
+                if ($item > $upper || (!$inclusiveUpper && $item >= $upper)) {
                     return false;
-                } elseif ($item < $lower || (!$inclusiveUpper && $item <= $lower)) {
+                } elseif ($item < $lower || (!$inclusiveLower && $item <= $lower)) {
                     return false;
                 }
 
