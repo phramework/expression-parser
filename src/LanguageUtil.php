@@ -107,6 +107,10 @@ final class LanguageUtil
             '!'                 => function ($op) {
                 return !$op;
             },
+            /**
+             * Will return true, only if given $item is inside the range
+             * @return bool
+             */
             'range'             => function (
                 $item,
                 $lower,
