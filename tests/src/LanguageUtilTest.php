@@ -171,12 +171,13 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
                     LanguageUtil::getMethod('range')
                 )
         );
+        
         $r = $p->evaluate([
             'range',
             0,
             0,
             1,
-            true,
+            false,
             true
         ]);
         
@@ -192,12 +193,13 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
                     LanguageUtil::getMethod('range')
                 )
         );
+        
         $r = $p->evaluate([
             'range',
             1,
             0,
             1,
-            true,
+            false,
             true
         ]);
         
