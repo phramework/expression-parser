@@ -162,7 +162,7 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($r);
     }
 
-    public function testRangeLowerInclusive()
+    public function testRangeLowerInclusiveFalseShouldNotIncludeLower()
     {
         $p = new ExpressionParser(
             (new Language())
@@ -178,13 +178,35 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
             0,
             1,
             false,
-            true
+            false
         ]);
         
-        $this->assertTrue($r, 'Expect true since 0 <= 0');
+        $this->assertFalse($r, 'Expect false since 0 <= 0 (not inclusive)');
+    }
+
+    public function testRangeLowerInclusiveTrueShouldIncludeLower()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    'range',
+                    LanguageUtil::getMethod('range')
+                )
+        );
+
+        $r = $p->evaluate([
+            'range',
+            0,
+            0,
+            1,
+            true,
+            false
+        ]);
+
+        $this->assertTrue($r, 'Expect true since 0 <= 0 (inclusive)');
     }
     
-    public function testRangeUpperInclusive()
+    public function testRangeUpperInclusiveFalseShouldNotIncludeUpper()
     {
         $p = new ExpressionParser(
             (new Language())
@@ -200,9 +222,31 @@ class LanguageUtilTest extends \PHPUnit_Framework_TestCase
             0,
             1,
             false,
-            true
+            false
         ]);
         
-        $this->assertTrue($r, 'Expect true since 1 >= 0');
+        $this->assertFalse($r, 'Expect false since 1 >= 1 (not inclusive)');
+    }
+
+    public function testRangeUpperInclusiveTrueShouldIncludeUpper()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    'range',
+                    LanguageUtil::getMethod('range')
+                )
+        );
+
+        $r = $p->evaluate([
+            'range',
+            1,
+            0,
+            1,
+            false,
+            true
+        ]);
+
+        $this->assertTrue($r, 'Expect true since 1 >= 1 (inclusive)');
     }
 }

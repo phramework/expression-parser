@@ -124,6 +124,7 @@ final class LanguageUtil
 
                 if ($item > $upper || (!$inclusiveUpper && $item == $upper)) {
                     return false;
+                }
                 
                 if ($item < $lower || (!$inclusiveLower && $item == $lower)) {
                     return false;
