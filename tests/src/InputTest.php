@@ -17,54 +17,40 @@ declare(strict_types=1);
  */
 namespace Phramework\ExpressionParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
- * Input collection for parser
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @since 0.0.0
+ * @coversDefaultClass  Phramework\ExpressionParser\InputTest
  */
-class Input
+class InputTest extends TestCase
 {
-    /**
-     * @var \stdClass
-     */
-    private $repository;
-
-    public function __construct()
+    public function testSet()
     {
-        $this->repository = new \stdClass();
-    }
+        $input = new Input();
 
-    /**
-     * Get key value
-     * @param string $key
-     * @return mixed
-     */
-    public function get(string $key)
-    {
-        return $this->repository->{$key};
-    }
+        $someValue = (object) [
+            'a' => 5,
+            'b' => 5,
+        ];
 
-    /**
-     * Check if key is set
-     * @param string $key
-     * @return bool
-     */
-    public function isset(string $key) : bool
-    {
-        return property_exists($this->repository, $key);
-    }
+        $this->assertFalse(
+            $input->isset('some-key')
+        );
 
-    /**
-     * Set value for key
-     * @param string $key
-     * @param mixed  $value
-     * @return $this
-     */
-    public function set(string $key, $value)
-    {
-        $this->repository->{$key} = $value;
+        $input->set(
+            'some-key',
+            $someValue
+        );
 
-        return $this;
+        $this->assertTrue(
+            $input->isset('some-key')
+        );
+
+        $this->assertSame(
+            $someValue,
+            $input->get('some-key')
+        );
     }
 }
