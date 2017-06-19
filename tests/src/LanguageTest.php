@@ -17,19 +17,15 @@ declare(strict_types=1);
  */
 namespace Phramework\ExpressionParser;
 
-use Phramework\Operator\Operator;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @coversDefaultClass  Phramework\ExpressionParser\Language
  */
-class LanguageTest extends \PHPUnit_Framework_TestCase
+class LanguageTest extends TestCase
 {
-
-    /**
-     * @covers ::__construct
-     */
     public function testConstruct()
     {
         $l = (new Language());
@@ -39,19 +35,17 @@ class LanguageTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers ::set
-     */
-    public static function testSet()
+    public function testSet()
     {
         $l = (new Language())
             ->set('max', LanguageUtil::getMethod('max'));
+
+        $this->assertTrue($l->isset('max'));
 
         return $l;
     }
 
     /**
-     * @covers ::isset
      * @depends testSet
      */
     public function testIsset(Language $language)
@@ -66,7 +60,6 @@ class LanguageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::get
      * @depends testSet
      */
     public function testGet(Language $language)

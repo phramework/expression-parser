@@ -17,7 +17,7 @@
     "phramework/operator": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.*",
+    "phpunit/phpunit": "6.*",
     "squizlabs/php_codesniffer": "*",
     "satooshi/php-coveralls": "dev-master",
     "codacy/coverage": "^1.0",

@@ -17,6 +17,7 @@ declare(strict_types=1);
  */
 namespace Phramework\ExpressionParser;
 
+use PHPUnit\Framework\TestCase;
 use Phramework\Operator\Operator;
 
 /**
@@ -24,7 +25,7 @@ use Phramework\Operator\Operator;
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @coversDefaultClass  Phramework\ExpressionParser\LanguageUtil
  */
-class LanguageUtilTest extends \PHPUnit_Framework_TestCase
+class LanguageUtilTest extends TestCase
 {
     public function testMax()
     {

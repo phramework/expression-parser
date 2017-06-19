@@ -17,12 +17,14 @@ declare(strict_types=1);
  */
 namespace Phramework\ExpressionParser;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
  * @coversDefaultClass  Phramework\ExpressionParser\ExpressionParser
  */
-class ExpressionParserTest extends \PHPUnit_Framework_TestCase
+class ExpressionParserTest extends TestCase
 {
     /**
      * @var ExpressionParser
@@ -42,15 +44,6 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::__construct
-     */
-    public function testConstruct()
-    {
-        new ExpressionParser(Language::getDefault());
-    }
-
-    /**
-     * @covers ::evaluate
      */
     public function testEvaluateLiteral()
     {
@@ -74,7 +67,6 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::evaluate
      */
     public function testEvaluate()
     {
@@ -117,7 +109,6 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::evaluate
      */
     public function testEvaluateQuote()
     {
@@ -135,7 +126,6 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::evaluate
      */
     public function testEvaluateInput()
     {
@@ -147,7 +137,6 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::evaluate
      */
     public function testCustomLanguage()
     {
@@ -189,7 +178,6 @@ class ExpressionParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ::evaluate
      */
     public function testComplex()
     {
