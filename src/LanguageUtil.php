@@ -77,29 +77,39 @@ final class LanguageUtil
                 return count(array_unique($op)) > 1;
             },
             Operator::LESS      => function (...$op): bool {
-                $init = reset($op);
+                $l = count($op);
 
-                next($op);
+                if ($l === 0) {
+                    return true;
+                }
 
-                while (list($key, $val) = each($op)) {
-                    if ($val >= $init) {
+                $previous = $op[0];
+
+                for ($i = 1; $i < $l; ++$i) {
+                    if ($previous <= $op[$i]) {
                         return false;
                     }
-                    $init = $val;
+
+                    $previous = $op[$i];
                 }
 
                 return true;
             },
             Operator::GREATER   => function (...$op): bool {
-                $init = reset($op);
+                $l = count($op);
 
-                next($op);
+                if ($l === 0) {
+                    return true;
+                }
 
-                while (list($key, $val) = each($op)) {
-                    if ($val <= $init) {
+                $previous = $op[0];
+
+                for ($i = 1; $i < $l; ++$i) {
+                    if ($previous >= $op[$i]) {
                         return false;
                     }
-                    $init = $val;
+
+                    $previous = $op[$i];
                 }
 
                 return true;

@@ -27,6 +27,54 @@ use Phramework\Operator\Operator;
  */
 class LanguageUtilTest extends TestCase
 {
+    /**
+     * @todo maybe it should require it
+     */
+    public function testAndToBeTrueWhenEmpty()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set('and', LanguageUtil::getMethod('and'))
+        );
+
+        $r = $p->evaluate([
+            'and',
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    public function testOrToBeTrue()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set('or', LanguageUtil::getMethod('or'))
+        );
+
+        $r = $p->evaluate([
+            'or',
+            false,
+            false,
+            true
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    public function testOrToBeFalseWhenEmpty()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set('or', LanguageUtil::getMethod('or'))
+        );
+
+        $r = $p->evaluate([
+            'or',
+        ]);
+
+        $this->assertFalse($r);
+    }
+
     public function testMax()
     {
         $p = new ExpressionParser(
@@ -48,7 +96,28 @@ class LanguageUtilTest extends TestCase
         );
     }
 
-    public function testGreater()
+    public function testMix()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set('min', LanguageUtil::getMethod('min'))
+        );
+
+        $r = $p->evaluate([
+            'min',
+            1,
+            3,
+            10,
+            -2
+        ]);
+
+        $this->assertSame(
+            -2,
+            $r
+        );
+    }
+
+    public function testGreaterFalse()
     {
         $p = new ExpressionParser(
             (new Language())
@@ -67,6 +136,17 @@ class LanguageUtilTest extends TestCase
         ]);
 
         $this->assertFalse($r);
+    }
+
+    public function testGreaterTrue()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    Operator::GREATER,
+                    LanguageUtil::getMethod(Operator::GREATER)
+                )
+        );
 
         $r = $p->evaluate([
             Operator::GREATER,
@@ -74,6 +154,102 @@ class LanguageUtilTest extends TestCase
             3,
             5,
             20
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    public function testGreaterEmptyShouldBeTrue()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    Operator::GREATER,
+                    LanguageUtil::getMethod(Operator::GREATER)
+                )
+        );
+
+        $r = $p->evaluate([
+            Operator::GREATER
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    public function testLessFalse()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    Operator::LESS,
+                    LanguageUtil::getMethod(Operator::LESS)
+                )
+        );
+
+        $r = $p->evaluate([
+            Operator::LESS,
+            2,
+            5,
+            3,
+            1
+        ]);
+
+        $this->assertFalse($r);
+    }
+
+    public function testLessTrue()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    Operator::LESS,
+                    LanguageUtil::getMethod(Operator::LESS)
+                )
+        );
+
+        $r = $p->evaluate([
+            Operator::LESS,
+            20,
+            5,
+            3,
+            1
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    public function testLessEmptyShouldBeTrue()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    Operator::LESS,
+                    LanguageUtil::getMethod(Operator::LESS)
+                )
+        );
+
+        $r = $p->evaluate([
+            Operator::LESS
+        ]);
+
+        $this->assertTrue($r);
+    }
+
+    public function testEqualTrue()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    Operator::EQUAL,
+                    LanguageUtil::getMethod(Operator::EQUAL)
+                )
+        );
+
+        $r = $p->evaluate([
+            Operator::EQUAL,
+            1,
+            1,
+            1
         ]);
 
         $this->assertTrue($r);
@@ -249,5 +425,31 @@ class LanguageUtilTest extends TestCase
         ]);
 
         $this->assertTrue($r, 'Expect true since 1 >= 1 (inclusive)');
+    }
+
+    public function testNot()
+    {
+        $p = new ExpressionParser(
+            (new Language())
+                ->set(
+                    '!',
+                    LanguageUtil::getMethod('!')
+                )
+        );
+
+        $r = $p->evaluate([
+            '!',
+            true
+        ]);
+
+        $this->assertFalse($r);
+
+
+        $r = $p->evaluate([
+            '!',
+            false
+        ]);
+
+        $this->assertTrue($r);
     }
 }
