@@ -53,16 +53,15 @@ $result = $parser->evaluate([
 
 
 ### A more complex example
-
 ```php
 <?php
 /*
  * Define a language
- * with plus and minus functions
+ * with "+" (addition) and "-" (subtraction) functions for float numbers
  */
 $language = (new Language())
     /*
-     * Define '+' function
+     * Define "+" (addition) function
      */
     ->set(
         '+',
@@ -71,7 +70,7 @@ $language = (new Language())
         }
     )
     /*
-     * Define '+' function
+     * Define "-" (subtraction) function
      */
     ->set(
         '-',
@@ -89,7 +88,7 @@ $parser = new ExpressionParser(
 
 /*
  * Evaluate expression
- * expect result to be 5 + 4.5 - 1 = 8.5
+ * expect result to be 5 + (4.5 - 1) = 8.5
  */
 $result = $parser->evaluate([
     '+',
