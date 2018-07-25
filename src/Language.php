@@ -24,7 +24,6 @@ use Phramework\Operator\Operator;
  * contains the definitions of available functions
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass  Phramework\ExpressionParser\ExpressionParser
  * @since 0.0.0
  */
 class Language
