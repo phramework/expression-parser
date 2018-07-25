@@ -12,16 +12,15 @@
     }
   ],
   "require": {
-    "php": ">=7",
+    "php": "^7.0.0",
     "phramework/util": "0.0.0-RC",
     "phramework/operator": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "6.*",
     "squizlabs/php_codesniffer": "*",
-    "satooshi/php-coveralls": "dev-master",
     "codacy/coverage": "^1.0",
-    "phpdocumentor/phpdocumentor": "2.*"
+    "satooshi/php-coveralls": "^2.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
