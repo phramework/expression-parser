@@ -17,13 +17,11 @@
     "phramework/operator": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "6.*",
-    "squizlabs/php_codesniffer": "*",
     "codacy/coverage": "^1.0",
-    "satooshi/php-coveralls": "^2.0"
+    "satooshi/php-coveralls": "^2.0",
+    "squizlabs/php_codesniffer": "^3.3",
+    "phpunit/phpunit": "^7.2"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Phramework\\ExpressionParser\\": "src"
