@@ -3,8 +3,15 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
+  - 7.4
   - nightly
   
+matrix:
+  allow_failures:
+  - 7.4
+  - php: nightly
+
 install:
  - composer self-update
  - composer install --no-interaction --dev
