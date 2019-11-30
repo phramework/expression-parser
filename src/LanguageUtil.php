@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /**
- * Copyright 2016-2017 Xenofon Spafaridis
+ * Copyright 2016-2018 Xenofon Spafaridis
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ use Phramework\Operator\Operator;
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass  Phramework\ExpressionParser\ExpressionParser
  * @since 0.0.0
  */
 final class LanguageUtil
