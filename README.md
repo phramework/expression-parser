@@ -3,7 +3,7 @@
  [![Build Status](https://travis-ci.org/phramework/expression-parser.svg?branch=master)](https://travis-ci.org/phramework/expression-parser) [![Coverage Status](https://coveralls.io/repos/github/phramework/expression-parser/badge.svg?branch=master)](https://coveralls.io/github/phramework/expression-parser?branch=master)
 
 ## Requirements 
-- php 7.0 or newer
+- php 7.2 or newer
 - [composer](https://getcomposer.org/)
 
 ## Install

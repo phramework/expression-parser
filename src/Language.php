@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+
 /**
  * Copyright 2016-2018 Xenofon Spafaridis
  *
@@ -15,6 +15,9 @@ declare(strict_types=1);
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+declare(strict_types=1);
+
 namespace Phramework\ExpressionParser;
 
 /**
@@ -51,7 +54,7 @@ class Language
      * @param string $key
      * @return bool
      */
-    public function isset(string $key) : bool
+    public function isset(string $key): bool
     {
         return property_exists($this->language, $key);
     }
@@ -73,7 +76,7 @@ class Language
      * Return the default language
      * @return Language
      */
-    public static function getDefault() : Language
+    public static function getDefault(): Language
     {
         $methodKeysFromLibrary = [
             'member',

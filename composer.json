@@ -30,6 +30,6 @@
     "test": [
       "phpunit"
     ],
-    "lint": "phpcs -p -s --standard=PSR2 ./src"
+    "lint": "phpcs -p -s --standard=code-standard.xml ./src/ ./tests"
   }
 }

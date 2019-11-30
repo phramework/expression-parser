@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+
 /**
  * Copyright 2016-2018 Xenofon Spafaridis
  *
@@ -15,6 +15,9 @@ declare(strict_types=1);
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+declare(strict_types=1);
+
 namespace Phramework\ExpressionParser;
 
 /**
@@ -34,7 +37,7 @@ final class LanguageUtil
      */
     protected $methodLibrary = null;
 
-    public static function getInstance() : LanguageUtil
+    public static function getInstance(): LanguageUtil
     {
         if (static::$instance === null) {
             static::$instance = new LanguageUtil();
@@ -153,7 +156,7 @@ final class LanguageUtil
      * @param string $key
      * @return callable
      */
-    public static function getMethod(string $key) : callable
+    public static function getMethod(string $key): callable
     {
         $instance = static::getInstance();
 
