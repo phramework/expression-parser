@@ -23,7 +23,6 @@ use Phramework\Operator\Operator;
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass  Phramework\ExpressionParser\LanguageUtil
  */
 class LanguageUtilTest extends TestCase
 {
