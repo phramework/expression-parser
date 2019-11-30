@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
  */
 class LanguageTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $l = (new Language());
 
@@ -34,7 +34,7 @@ class LanguageTest extends TestCase
         );
     }
 
-    public function testSet()
+    public function testSet(): Language
     {
         $l = (new Language())
             ->set('max', LanguageUtil::getMethod('max'));
@@ -47,7 +47,7 @@ class LanguageTest extends TestCase
     /**
      * @depends testSet
      */
-    public function testIsset(Language $language)
+    public function testIsset(Language $language): void
     {
         $this->assertTrue(
             $language->isset('max')
@@ -61,10 +61,9 @@ class LanguageTest extends TestCase
     /**
      * @depends testSet
      */
-    public function testGet(Language $language)
+    public function testGet(Language $language): void
     {
-        $this->assertInternalType(
-            'callable',
+        $this->assertIsCallable(
             $language->get('max')
         );
     }

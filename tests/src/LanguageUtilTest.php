@@ -29,7 +29,7 @@ class LanguageUtilTest extends TestCase
     /**
      * @todo maybe it should require it
      */
-    public function testAndToBeTrueWhenEmpty()
+    public function testAndToBeTrueWhenEmpty(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -43,7 +43,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testOrToBeTrue()
+    public function testOrToBeTrue(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -60,7 +60,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testOrToBeFalseWhenEmpty()
+    public function testOrToBeFalseWhenEmpty(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -74,7 +74,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r);
     }
 
-    public function testMax()
+    public function testMax(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -95,7 +95,7 @@ class LanguageUtilTest extends TestCase
         );
     }
 
-    public function testMix()
+    public function testMix(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -116,7 +116,7 @@ class LanguageUtilTest extends TestCase
         );
     }
 
-    public function testGreaterFalse()
+    public function testGreaterFalse(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -137,7 +137,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r);
     }
 
-    public function testGreaterTrue()
+    public function testGreaterTrue(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -158,7 +158,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testGreaterEmptyShouldBeTrue()
+    public function testGreaterEmptyShouldBeTrue(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -175,7 +175,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testLessFalse()
+    public function testLessFalse(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -196,7 +196,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r);
     }
 
-    public function testLessTrue()
+    public function testLessTrue(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -217,7 +217,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testLessEmptyShouldBeTrue()
+    public function testLessEmptyShouldBeTrue(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -234,7 +234,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testEqualTrue()
+    public function testEqualTrue(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -254,7 +254,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testNotEqual()
+    public function testNotEqual(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -274,7 +274,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r);
     }
 
-    public function testRange()
+    public function testRange(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -296,7 +296,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r, 'Expect true, since 1 <= 2 <= 3');
     }
 
-    public function testRangeSecond()
+    public function testRangeSecond(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -318,7 +318,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r, 'Expect false, since 1 < 3 < 3');
     }
     
-    public function testRangeNull()
+    public function testRangeNull(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -338,7 +338,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r);
     }
 
-    public function testRangeLowerInclusiveFalseShouldNotIncludeLower()
+    public function testRangeLowerInclusiveFalseShouldNotIncludeLower(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -360,7 +360,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r, 'Expect false since 0 <= 0 (not inclusive)');
     }
 
-    public function testRangeLowerInclusiveTrueShouldIncludeLower()
+    public function testRangeLowerInclusiveTrueShouldIncludeLower(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -382,7 +382,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r, 'Expect true since 0 <= 0 (inclusive)');
     }
     
-    public function testRangeUpperInclusiveFalseShouldNotIncludeUpper()
+    public function testRangeUpperInclusiveFalseShouldNotIncludeUpper(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -404,7 +404,7 @@ class LanguageUtilTest extends TestCase
         $this->assertFalse($r, 'Expect false since 1 >= 1 (not inclusive)');
     }
 
-    public function testRangeUpperInclusiveTrueShouldIncludeUpper()
+    public function testRangeUpperInclusiveTrueShouldIncludeUpper(): void
     {
         $p = new ExpressionParser(
             (new Language())
@@ -426,7 +426,7 @@ class LanguageUtilTest extends TestCase
         $this->assertTrue($r, 'Expect true since 1 >= 1 (inclusive)');
     }
 
-    public function testNot()
+    public function testNot(): void
     {
         $p = new ExpressionParser(
             (new Language())
