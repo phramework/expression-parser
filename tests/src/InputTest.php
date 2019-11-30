@@ -22,11 +22,10 @@ use PHPUnit\Framework\TestCase;
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass  Phramework\ExpressionParser\InputTest
  */
 class InputTest extends TestCase
 {
-    public function testSet()
+    public function testSet(): void
     {
         $input = new Input();
 
