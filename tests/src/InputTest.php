@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
  */
 class InputTest extends TestCase
 {
-    public function testSet()
+    public function testSet(): void
     {
         $input = new Input();
 
