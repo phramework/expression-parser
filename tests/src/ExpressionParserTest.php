@@ -22,16 +22,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
- * @coversDefaultClass  Phramework\ExpressionParser\ExpressionParser
  */
 class ExpressionParserTest extends TestCase
 {
-    /**
-     * @var ExpressionParser
-     */
+    /** @var ExpressionParser */
     protected $parser;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parser = new ExpressionParser(
             Language::getDefault(),
@@ -43,16 +40,13 @@ class ExpressionParserTest extends TestCase
         );
     }
 
-    /**
-     */
-    public function testEvaluateLiteral()
+    public function testEvaluateLiteral(): void
     {
         $r = $this->parser->evaluate(
             true
         );
 
-        $this->assertSame(
-            true,
+        $this->assertTrue(
             $r
         );
 
@@ -66,9 +60,7 @@ class ExpressionParserTest extends TestCase
         );
     }
 
-    /**
-     */
-    public function testEvaluate()
+    public function testEvaluate(): void
     {
         $r = $this->parser->evaluate([
             'member',
@@ -105,12 +97,9 @@ class ExpressionParserTest extends TestCase
         ]);
 
         $this->assertTrue($r);
-
     }
 
-    /**
-     */
-    public function testEvaluateQuote()
+    public function testEvaluateQuote(): void
     {
         $r = $this->parser->evaluate(
             ['quote',  true]
@@ -125,9 +114,7 @@ class ExpressionParserTest extends TestCase
         $this->assertSame([1, 5, 3], $r);
     }
 
-    /**
-     */
-    public function testEvaluateInput()
+    public function testEvaluateInput(): void
     {
         $r = $this->parser->evaluate(
             ['input',  'a']
@@ -136,14 +123,12 @@ class ExpressionParserTest extends TestCase
         $this->assertSame(5, $r);
     }
 
-    /**
-     */
-    public function testCustomLanguage()
+    public function testCustomLanguage(): void
     {
         $language = (new Language())
             ->set(
                 'or',
-                function(bool $l, bool $r) {
+                static function (bool $l, bool $r) {
                     return $l || $r;
                 }
             );
@@ -177,9 +162,7 @@ class ExpressionParserTest extends TestCase
         $this->assertTrue($r);
     }
 
-    /**
-     */
-    public function testComplex()
+    public function testComplex(): void
     {
         /**
          * Define a language of functions
@@ -190,7 +173,7 @@ class ExpressionParserTest extends TestCase
              */
             ->set(
                 '+',
-                function(float $l, float $r) : float {
+                static function (float $l, float $r) : float {
                     return $l + $r;
                 }
             )
@@ -199,7 +182,7 @@ class ExpressionParserTest extends TestCase
              */
             ->set(
                 '-',
-                function(float $l, float $r) : float {
+                static function (float $l, float $r) : float {
                     return $l - $r;
                 }
             );

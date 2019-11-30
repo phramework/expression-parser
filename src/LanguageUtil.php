@@ -17,8 +17,6 @@ declare(strict_types=1);
  */
 namespace Phramework\ExpressionParser;
 
-use Phramework\Operator\Operator;
-
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
  * @author Xenofon Spafaridis <nohponex@gmail.com>
@@ -48,10 +46,10 @@ final class LanguageUtil
     protected function __construct()
     {
         $this->methodLibrary = (object) [
-            'member'            => function ($item, $list): bool {
+            'member' => static function ($item, $list): bool {
                 return in_array($item, $list);
             },
-            'or'                => function (bool ...$op): bool {
+            'or' => static function (bool ...$op): bool {
                 foreach ($op as $item) {
                     if ($item === true) {
                         return true;
@@ -60,7 +58,7 @@ final class LanguageUtil
 
                 return false;
             },
-            'and'               => function (bool ...$op): bool {
+            'and' => static function (bool ...$op): bool {
                 foreach ($op as $item) {
                     if ($item === false) {
                         return false;
@@ -69,13 +67,13 @@ final class LanguageUtil
 
                 return true;
             },
-            Operator::EQUAL     => function (...$op) {
+            '==' => static function (...$op) {
                 return count(array_unique($op)) === 1;
             },
-            Operator::NOT_EQUAL => function (...$op): bool {
+            '!=' => static function (...$op): bool {
                 return count(array_unique($op)) > 1;
             },
-            Operator::LESS      => function (...$op): bool {
+            '<' => static function (...$op): bool {
                 $l = count($op);
 
                 if ($l === 0) {
@@ -94,7 +92,7 @@ final class LanguageUtil
 
                 return true;
             },
-            Operator::GREATER   => function (...$op): bool {
+            '>' => static function (...$op): bool {
                 $l = count($op);
 
                 if ($l === 0) {
@@ -113,20 +111,20 @@ final class LanguageUtil
 
                 return true;
             },
-            '!'                 => function ($op) {
+            '!' => static function ($op) {
                 return !$op;
             },
             /**
              * Will return true, only if given $item is inside the range
              * @return bool
              */
-            'range'             => function (
+            'range' => static function (
                 $item,
                 $lower,
                 $upper,
                 bool $inclusiveLower = true,
                 bool $inclusiveUpper = true
-            ) : bool {
+            ): bool {
                 if ($item === null) {
                     return false;
                 }
@@ -141,10 +139,10 @@ final class LanguageUtil
 
                 return true;
             },
-            'max'              => function (...$op) {
+            'max' => static function (...$op) {
                 return max(...$op);
             },
-            'min'              => function (...$op) {
+            'min' => static function (...$op) {
                 return min(...$op);
             }
         ];
