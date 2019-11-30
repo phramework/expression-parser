@@ -17,8 +17,6 @@ declare(strict_types=1);
  */
 namespace Phramework\ExpressionParser;
 
-use Phramework\Operator\Operator;
-
 /**
  * Language of the parser,
  * contains the definitions of available functions
@@ -81,10 +79,10 @@ class Language
             'member',
             'or',
             'and',
-            Operator::EQUAL,
-            Operator::NOT_EQUAL,
-            Operator::LESS,
-            Operator::GREATER
+            '==',
+            '!=',
+            '<',
+            '>'
         ];
 
         $language = new Language();

@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace Phramework\ExpressionParser;
 
 use PHPUnit\Framework\TestCase;
-use Phramework\Operator\Operator;
 
 /**
  * @license https://www.apache.org/licenses/LICENSE-2.0 Apache-2.0
@@ -122,13 +121,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::GREATER,
-                    LanguageUtil::getMethod(Operator::GREATER)
+                    '>',
+                    LanguageUtil::getMethod('>')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::GREATER,
+            '>',
             1,
             3,
             5,
@@ -143,13 +142,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::GREATER,
-                    LanguageUtil::getMethod(Operator::GREATER)
+                    '>',
+                    LanguageUtil::getMethod('>')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::GREATER,
+            '>',
             1,
             3,
             5,
@@ -164,13 +163,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::GREATER,
-                    LanguageUtil::getMethod(Operator::GREATER)
+                    '>',
+                    LanguageUtil::getMethod('>')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::GREATER
+            '>'
         ]);
 
         $this->assertTrue($r);
@@ -181,13 +180,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::LESS,
-                    LanguageUtil::getMethod(Operator::LESS)
+                    '<',
+                    LanguageUtil::getMethod('<')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::LESS,
+            '<',
             2,
             5,
             3,
@@ -202,13 +201,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::LESS,
-                    LanguageUtil::getMethod(Operator::LESS)
+                    '<',
+                    LanguageUtil::getMethod('<')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::LESS,
+            '<',
             20,
             5,
             3,
@@ -223,13 +222,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::LESS,
-                    LanguageUtil::getMethod(Operator::LESS)
+                    '<',
+                    LanguageUtil::getMethod('<')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::LESS
+            '<'
         ]);
 
         $this->assertTrue($r);
@@ -240,13 +239,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::EQUAL,
-                    LanguageUtil::getMethod(Operator::EQUAL)
+                    '==',
+                    LanguageUtil::getMethod('==')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::EQUAL,
+            '==',
             1,
             1,
             1
@@ -260,13 +259,13 @@ class LanguageUtilTest extends TestCase
         $p = new ExpressionParser(
             (new Language())
                 ->set(
-                    Operator::NOT_EQUAL,
-                    LanguageUtil::getMethod(Operator::NOT_EQUAL)
+                    '!=',
+                    LanguageUtil::getMethod('!=')
                 )
         );
 
         $r = $p->evaluate([
-            Operator::NOT_EQUAL,
+            '!=',
             1,
             1,
             2

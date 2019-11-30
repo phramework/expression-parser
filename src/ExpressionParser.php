@@ -48,10 +48,6 @@ class ExpressionParser
      */
     public function evaluate($exp)
     {
-        /*if (is_bool($exp)) { //bool
-            return $exp;
-        }*/
-
         if (is_string($exp) && $this->language->isset($exp)) {
             /*
              * return callable
